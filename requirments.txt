@@ -1,0 +1,8 @@
+ipython
+langchain
+chromadb
+langchain-community
+langchain_community
+gradio
+nltk
+ollama
