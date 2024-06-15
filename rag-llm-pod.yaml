@@ -24,6 +24,15 @@ spec:
   - name: rag-llm-ollama
     image: python
     command: ["sh", "-c", "echo 'Im a new pod' && sleep infinity"]
+    args:
+    - >-
+        cd /root;
+        git clone https://github.com/SDSU-Research-CI/rag-llm-quick-start;
+        mv rag-llm-quick-start code;
+        cd code;
+        chmod +x setup.sh;
+        setup.sh;
+        python app.py;
     resources:
       limits:
         nvidia.com/gpu: 1
