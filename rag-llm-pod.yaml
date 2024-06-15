@@ -31,7 +31,7 @@ spec:
         mv rag-llm-quick-start code;
         cd code;
         chmod +x setup.sh;
-        setup.sh;
+        ./setup.sh;
         python app.py;
     resources:
       limits:
