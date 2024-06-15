@@ -10,7 +10,7 @@ k exec -it -n sdsu-mikefarley rag-llm-ollama -- /bin/bash
 
 k port-forward rag-llm-ollama -n sdsu-mikefarley 8888:7860
 
-k cp -n sdsu-mikefarley student_responses.csv rag-llm-ollama:/root/code/data/student_responses.csv
+k cp -n sdsu-mikefarley student_responses.csv rag-llm-ollama:/root/code/student_responses.csv
 
 
 
