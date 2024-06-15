@@ -7,7 +7,7 @@ from chromadb.config import DEFAULT_TENANT, DEFAULT_DATABASE, Settings
 
 OLLAMA_MODEL = "llama3"
 OLLAMA_URL = "http://localhost:11434"
-CHROMA_PATH = "chroma/"
+CHROMA_PATH = "/chroma/"
 COLLECTION = "docs"
 CHROMA_MODEL = "nomic-embed-text"
 

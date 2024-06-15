@@ -5,6 +5,9 @@ if [ ! -d "/chroma" ]; then
   mkdir /chroma
 fi
 
+apt-get update
+apt-get install -y vim
+
 pip install -r requirements.txt
 
 curl -fsSL https://ollama.com/install.sh | sh
