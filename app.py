@@ -53,4 +53,4 @@ gradio_interface = gr.ChatInterface(
 
 )
 
-gradio_interface.launch()
+gradio_interface.launch(auth=("user", "sdsu"))
