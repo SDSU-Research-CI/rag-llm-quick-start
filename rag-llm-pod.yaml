@@ -23,7 +23,7 @@ spec:
   containers:
   - name: rag-llm-ollama
     image: python
-    command: ["sh", "-c", "echo 'Im a new pod' && sleep infinity"]
+    command: ["/bin/bash", "-c"]
     args:
     - >-
         cd /root;
