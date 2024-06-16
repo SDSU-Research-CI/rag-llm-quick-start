@@ -34,7 +34,7 @@ spec:
         cd code;
         chmod +x setup.sh;
         ./setup.sh;
-        python app.py;
+        python3 app.py;
     resources:
       limits:
         nvidia.com/gpu: 1
