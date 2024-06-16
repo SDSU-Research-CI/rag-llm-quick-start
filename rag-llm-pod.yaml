@@ -22,7 +22,7 @@ spec:
     operator: Exists
   containers:
   - name: rag-llm-ollama
-    image: python
+    image: nvidia/cuda:12.4.0-devel-ubuntu22.04
     command: ["/bin/bash", "-c"]
     args:
     - >-
