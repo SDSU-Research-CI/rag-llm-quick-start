@@ -5,8 +5,7 @@ if [ ! -d "/chroma" ]; then
   mkdir /chroma
 fi
 
-apt-get update
-apt-get install -y curl git vim python3 pip
+apt-get install -y curl vim python3 pip
 
 pip install -r requirements.txt
 

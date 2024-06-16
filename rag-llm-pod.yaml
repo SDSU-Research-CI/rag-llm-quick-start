@@ -27,6 +27,8 @@ spec:
     args:
     - >-
         cd /root;
+        apt-get update;
+        apt-get install -y git;
         git clone https://github.com/SDSU-Research-CI/rag-llm-quick-start;
         mv rag-llm-quick-start code;
         cd code;
