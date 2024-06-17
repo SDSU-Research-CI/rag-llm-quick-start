@@ -23,19 +23,19 @@ The chroma PVC will be mounted to /chroma on the running container. This path/di
 
 **Note:** You may wish to edit the yaml to increase the file storage size. 10GB is used as a starting point. Also note the example targets block storage on CSU TIDE hardware.
 
-## Create job
+## Create deployment
 
-Create the job:
+Create the deployment:
 
 ```
-kubectl create -f rag-llm-job.yaml -n <namespace>
+kubectl create -f rag-llm-deployment.yaml -n <namespace>
 ```
 
-This step will start the container and run several commands identified in the yaml file, including cloning this repository to the container and running the setup.sh script which will install several software packages, start Ollama and run the app.py program which will sever up the Gradio-based web interface.
+This step will start the container and run several commands identified in the yaml file, including cloning this repository to the container and running the setup.sh script which will install several software packages, start Ollama, and run the app.py program which will severe up the Gradio-based web interface.
 
 However, we must first initialize the Chroma database with our data to be used for RAG.
 
-Check that the job sucessfully created and a new rag-llm-ollama po started:
+Check that the deployment sucessfully created and a new rag-llm-ollama pod started:
 
 ```
 kubectl get pods -n <namespace>
@@ -133,6 +133,23 @@ Note: The endpoint URL is defined in two place in the service if you wish to cha
 
 You don't need to run these commands, just listing a few that might be handy in the future.
 
+## Cleanup / delete resoruces
+
+### Deployment/pod
+If you wish to stop the deployment/pod to free up resources, you can run the following command:
+
+```
+kubectl delete -f rag-llm-deployment.yaml -n <namespace>
+
+```
+
+Once complete, you can check that the deployment is delete by running:
+
+```
+kubectl get deployments -n <namespace>
+kubectl get pods -n <namespace>
+
+```
 
 ### Port forwarding ###
 
