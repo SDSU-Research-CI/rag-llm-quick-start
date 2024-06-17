@@ -45,7 +45,7 @@ The above command should return a pod
 
 ```
 NAME                   READY   STATUS    RESTARTS   AGE
-rag-llm-ollama-12345   1/1     Running   0          35m
+rag-llm-ollama-6c7d454b5-t5jwq   1/1     Running   0          35m
 ```
 
 **Note:** The text after the *rag-llm-ollama-* pod name will be unique and you'll need it for the next steps.
@@ -63,10 +63,10 @@ If the above works, you'll be presetned with root shell promt in the running con
 E.g., 
 
 ```
-root@rag-llm-ollama-12345:/# hostname
+root@rag-llm-ollama-123456789-12345:/# hostname
 rag-llm-ollama-12345
 
-root@rag-llm-ollama-12345:/# whoami
+root@rag-llm-ollama-123456789-12345:/# whoami
 root
 ````
 
@@ -75,7 +75,7 @@ root
 Change to the code directory in root's home directory:
 
 ```
-root@rag-llm-ollama-12345:/# cd ~/code/
+root@rag-llm-ollama-123456789-12345:/# cd ~/code/
 ```
 
 This directory contains all the files that were cloned from this repository when the container started.
@@ -91,7 +91,7 @@ kubectl cp -n <namespace> student_responses.csv rag-llm-ollama-<unique>:/root/co
 Return to the remote shell and issue a directory list command. You should now see the student_responses.csv file in the directory.
 
 ```
-root@rag-llm-ollama-12345:~/code# ls -la
+root@rag-llm-ollama-123456789-12345:~/code# ls -la
 ...
 -rw-r--r-- 1 root root 1240 Jun 17 20:04 student_responses.csv
 ...
@@ -133,7 +133,7 @@ Note: The endpoint URL is defined in two place in the service if you wish to cha
 
 You don't need to run these commands, just listing a few that might be handy in the future.
 
-## Cleanup / delete resoruces
+## Cleanup / delete resources
 
 ### Deployment/pod
 If you wish to stop the deployment/pod to free up resources, you can run the following command:
@@ -156,6 +156,6 @@ kubectl get pods -n <namespace>
 If you wish to connect to a port running in a container without setting up service/ingress, you can do a port forward between the specific pod and your computer. In the example below, you are forwarding port 8888 on your local host to port 7860 on the container, so you would be able to use your web browser running on your computer to connect to http://localhost:8888 to reach the remote app.
 
 ```
-kubectl port-forward rag-llm-ollama-1234 -n <namespace> 8888:7860
+kubectl port-forward rag-llm-ollama-123456789-1234 -n <namespace> 8888:7860
 ```
 
