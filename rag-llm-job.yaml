@@ -5,7 +5,13 @@ metadata:
   labels:
     k8s-app: rag-llm-ollama
 spec:
-  template: 
+  selector:
+    matchLabels:
+      k8s-app: rag-llm-ollama
+  template:
+    metadata:
+      labels:
+        k8s-app: rag-llm-ollama 
     spec:  
       affinity:
         nodeAffinity:
