@@ -5,6 +5,10 @@ metadata:
   labels:
     k8s-app: rag-llm-ollama
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: rag-llm-ollama
   template:
     metadata:
       labels:
@@ -21,7 +25,6 @@ spec:
                 operator: In
                 values:
                 - NVIDIA-L40
-      restartPolicy: Never  
       tolerations:
       - effect: NoSchedule
         key: nautilus.io/csu-tide
