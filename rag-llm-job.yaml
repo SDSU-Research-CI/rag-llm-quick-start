@@ -5,9 +5,6 @@ metadata:
   labels:
     k8s-app: rag-llm-ollama
 spec:
-  selector:
-    matchLabels:
-      k8s-app: rag-llm-ollama
   template:
     metadata:
       labels:
