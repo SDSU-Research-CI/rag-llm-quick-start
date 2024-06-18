@@ -113,13 +113,14 @@ This will return the console output from the container and is handy for troubles
 
 ## Restart the deployment
 
-Once the Chroma database has been created, you will want to essentially restart the pod. The following command will start a new pod and shutdown the previous pod.
+Once the Chroma database has been created, you will want to essentially recreate the deployment.
 
 ```
-kubectl rollout restart deployment/rag-llm-ollama -n <namespace>
+kubectl delete deployment rag-llm-ollama -n <namespace>
+kubectl create -f rag-llm-deployment.yaml -n <namespace>
 ```
 
-The above command would also be run if you make updates to app.py or vector_database_setup.py in the Git repo and want the new code to be deployed. 
+The above command would also be run if you make updates to app.py or vector_database_setup.py in the Git repo and want the new code to be deployed.
 
 ## Create service and ingress
 
