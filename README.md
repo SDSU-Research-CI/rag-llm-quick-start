@@ -63,7 +63,7 @@ rag-llm-ollama-6c7d454b5-t5jwq   1/1     Running   0          35m
 Using the pod name identified above, run the follow command to connect to the pod's terminal:
 
 ```
-kubectl exec -it -n <namespace> space> rag-llm-ollama-<unique>-<name> -- /bin/bash
+kubectl exec -it -n <namespace> rag-llm-ollama-<unique>-<name> -- /bin/bash
 ```
 
 If the above works, you'll be presented with root shell prompt in the running container. 
