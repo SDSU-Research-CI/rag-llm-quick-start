@@ -23,6 +23,14 @@ The chroma PVC will be mounted to /chroma on the running container. This path/di
 
 **Note:** You may wish to edit the yaml to increase the file storage size. 10GB is used as a starting point. Also note the example targets block storage on CSU TIDE hardware.
 
+## Set a password
+
+The Gradio web interface is protected with a username and pasword. The username is hardcoded as "user" and the password is read in from a secret. Use the following command to set a secret password in your namespace, replacing \<password\> with your desired password:
+
+```
+kubectl create -n <namespace> secret generic webpass --from-literal=password=<password>
+```
+
 ## Create deployment
 
 Create the deployment:
