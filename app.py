@@ -1,3 +1,4 @@
+import os
 import gradio as gr
 import random
 from langchain_community.llms import Ollama
@@ -53,4 +54,4 @@ gradio_interface = gr.ChatInterface(
 
 )
 
-gradio_interface.launch(auth=("user", "sdsu"),server_name="0.0.0.0")
+gradio_interface.launch(auth=("user", os.environ['webpass']),server_name="0.0.0.0")
