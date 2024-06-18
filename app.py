@@ -54,4 +54,4 @@ gradio_interface = gr.ChatInterface(
 
 )
 
-gradio_interface.launch(auth=("user", os.environ['webpass']),server_name="0.0.0.0")
+gradio_interface.launch(auth=("user", os.environ['WEB_PASSWORD']),server_name="0.0.0.0")
