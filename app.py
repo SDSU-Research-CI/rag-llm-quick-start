@@ -1,16 +1,9 @@
-import gradio as gr, ollama
-
-try:
-    import chromadb
-except ImportError:
-    import IPython.display, pip
-    pip.main(["install", "-q", "chromadb"]) # Note: would be nice to load onto the notebook by default in the future to avoid this step
-    IPython.display.clear_output()
-    import chromadb
+import chromadb, gradio as gr, ollama
+from chromadb.config import DEFAULT_TENANT, DEFAULT_DATABASE, Settings
 
 def run_query(message, history, question, level, year, college, time_basis, campus, age, residency, living_situation, smart_devices_owned):    
     # Establish connection to vector database
-    client = chromadb.PersistentClient()
+    client = chromadb.PersistentClient(path = "/chroma", settings = Settings())
     collection = client.get_collection(name = "docs")
 
     # Vectorize prompt
