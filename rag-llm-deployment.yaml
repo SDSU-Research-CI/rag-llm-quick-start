@@ -56,10 +56,12 @@ spec:
         volumeMounts:
             - mountPath: /chroma
               name: rag-llm-chroma
-        envFrom:
-        - secretKeyRef:
-            key: password
-            name: webpass
+        env:
+          - name: WEB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: webpass
+                key: password
       volumes:
       - name: rag-llm-chroma
         persistentVolumeClaim:
