@@ -12,14 +12,14 @@ Clone this repository to your local machine where you have a working *kubectl* i
 
 **Note:** You will need access to a Nautilus Namespace. Replace *\<namespace\>* below with your namespace.
 
-## Create persistenat PVC (disk) 
+## Create persistent PVC (disk) 
 Create a persistent PVC (disk) to hold the vector database. This example uses Chroma, which is a sqllite, disk-based database. This is a one-time step, or if you need to update the vector store with new data.
 
 ```
 kubectl create -f rag-llm-chroma.yaml -n <namespace>
 ```
 
-The chroma PVC will be mounted to /chroma on the running container. This path/disk is persistent, unlike the container image's file system which is ephemerical. 
+The chroma PVC will be mounted to /chroma on the running container. This path/disk is persistent, unlike the container image's file system which is ephemeral. 
 
 **Note:** You may wish to edit the yaml to increase the file storage size. 10GB is used as a starting point. Also note the example targets block storage on CSU TIDE hardware.
 
@@ -35,7 +35,7 @@ This step will start the container and run several commands identified in the ya
 
 However, we must first initialize the Chroma database with our data to be used for RAG.
 
-Check that the deployment sucessfully created and a new rag-llm-ollama pod started:
+Check that the deployment successfully created and a new rag-llm-ollama pod started:
 
 ```
 kubectl get pods -n <namespace>
@@ -52,13 +52,13 @@ rag-llm-ollama-6c7d454b5-t5jwq   1/1     Running   0          35m
 
 ## Connect to the pod's terminal
 
-Usnig the pod name identifed above, run the follow command to connect to the pod's terminal:
+Using the pod name identified above, run the follow command to connect to the pod's terminal:
 
 ```
-kubectl exec -it -n <namespace> rag-llm-ollama-<unique> -- /bin/bash
+kubectl exec -it -n <namespace> space> rag-llm-ollama-<unique>-<name> -- /bin/bash
 ```
 
-If the above works, you'll be presetned with root shell promt in the running container. 
+If the above works, you'll be presented with root shell prompt in the running container. 
 
 E.g., 
 
@@ -75,7 +75,7 @@ root
 Change to the code directory in root's home directory:
 
 ```
-root@rag-llm-ollama-123456789-12345:/# cd ~/code/
+cd ~/code/
 ```
 
 This directory contains all the files that were cloned from this repository when the container started.
@@ -85,7 +85,7 @@ Next, open a second terminal on your local machine where your RAG data file is l
 The following command file copy the student_responses.csv file from your local computer to code directory on the remote container:
 
 ```
-kubectl cp -n <namespace> student_responses.csv rag-llm-ollama-<unique>:/root/code/student_responses.csv
+kubectl cp -n <namespace> student_responses.csv rag-llm-ollama-<unique>-<name>:/root/code/student_responses.csv
 ```
 
 Return to the remote shell and issue a directory list command. You should now see the student_responses.csv file in the directory.
@@ -103,17 +103,27 @@ Next, use the vector_database_setup.py Python program to populate the Chroma dat
 python3 vector_database_setup.py
 ```
 
-This command may take 5-10 minutes depending on document size. You can montior the progress running the following command your second terminal window:
+This command may take 5-10 minutes depending on document size. You can monitor the progress running the following command your second terminal window:
 
 ```
-kubectl logs rag-llm-ollama-<unique> -n <namespace>
+kubectl logs rag-llm-ollama-<unique>-<name> -n <namespace>
 ```
 
 This will return the console output from the container and is handy for troubleshooting.
 
+## Restart the deployment
+
+Once the Chroma database has been created, you will want to essentially restart the pod. The following command will start a new pod and shutdown the previous pod.
+
+```
+kubectl rollout restart deployment/rag-llm-ollama -n <namespace>
+```
+
+The above command would also be run if you make updates to app.py or vector_database_setup.py in the Git repo and want the new code to be deployed. 
+
 ## Create service and ingress
 
-The following steps only need to be excuted once and will set up a service and ingress for the deployment. This is what will make the web interface acessible:
+The following steps only need to be executed once and will set up a service and ingress for the deployment. This is what will make the web interface accessible:
 
 Create the service:
 
@@ -124,7 +134,7 @@ kubectl create -f rag-llm-service.yaml -n <namespace>
 Create the ingress point:
 
 ```
-kubectl create -f rag-llm-service.yaml -n <namespace>
+kubectl create -f rag-llm-ingress.yaml -n <namespace>
 ```
 
 Note: The endpoint URL is defined in two place in the service if you wish to change it.
@@ -133,7 +143,7 @@ Note: The endpoint URL is defined in two place in the service if you wish to cha
 
 You don't need to run these commands, just listing a few that might be handy in the future.
 
-## Cleanup / delete resources
+## Clean up / delete resources
 
 ### Deployment/pod
 If you wish to stop the deployment/pod to free up resources, you can run the following command:
