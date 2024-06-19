@@ -4,7 +4,7 @@ This examples illustrates the use of retrieval augmented generation (RAG) and la
 
 The quick starts uses Ollama as the tool for downloading and hosting models. In this example, the llama 3 model is used. Gradio is used to present a web-based chat interface.
 
-Steps to deploy yhe quick start:
+Steps to deploy the quick start:
 
 ## Clone repository
 
