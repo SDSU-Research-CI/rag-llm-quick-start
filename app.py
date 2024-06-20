@@ -1,4 +1,4 @@
-import chromadb, gradio as gr, ollama
+import chromadb, gradio as gr, ollama, requests
 from chromadb.config import DEFAULT_TENANT, DEFAULT_DATABASE, Settings
 
 def run_query(message, history, question, level, year, college, time_basis, campus, age, residency, living_situation, smart_devices_owned):    
@@ -46,6 +46,23 @@ def run_query(message, history, question, level, year, college, time_basis, camp
       model = "llama3",
       messages = messages,
     )
+
+    # Log interaction
+    data = {"prompt": message,
+       "response": response["message"]["content"],
+       "question": question,
+       "level": level,
+       "year": year,
+       "college": college,
+       "time_basis": time_basis,
+       "campus": campus,
+       "age": age,
+       "residency": residency,
+       "living_situation": living_situation,
+       "smart_devices": smart_devices_owned}
+    for key in data:
+    	data[key] = data[key].replace("\n", " ").replace('"', '\\"').replace("'", "\\'").replace("--", "")
+    requests.post("https://aisurvey.sdsu.edu/chatbot_log.php", data = data)
 
     # Pass response to interface
     return response["message"]["content"]
