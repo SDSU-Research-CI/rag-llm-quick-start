@@ -48,7 +48,7 @@ def run_query(message, history, question, level, year, college, time_basis, camp
     )
 
     # Log interaction
-    connection = sqlite3.connect("chroma/logs/logs.db")
+    connection = sqlite3.connect("/chroma/logs/logs.db")
     cursor = connection.cursor()
     cursor.execute("""INSERT INTO chatbot_log (question, user_prompt, response, level_, year_, college, residency, time_basis, campus, living, age, smart_devices, request_time)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);""",
