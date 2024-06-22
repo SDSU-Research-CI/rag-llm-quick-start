@@ -1,11 +1,11 @@
 import os, sqlite3
 
 # Create directory, if applicable
-if not os.path.exists("chroma/logs/"):
-    os.mkdir("chroma/logs/")
+if not os.path.exists("/chroma/logs/"):
+    os.mkdir("/chroma/logs/")
 
 # Logging setup
-connection = sqlite3.connect("chroma/logs/logs.db")
+connection = sqlite3.connect("/chroma/logs/logs.db")
 cursor = connection.cursor()
 cursor.execute("""CREATE TABLE IF NOT EXISTS `chatbot_log` (
     `request_id` integer PRIMARY KEY AUTOINCREMENT,
