@@ -21,5 +21,6 @@ cursor.execute("""CREATE TABLE IF NOT EXISTS `chatbot_log` (
     `age` varchar(100) DEFAULT NULL,
     `residency` varchar(100) DEFAULT NULL,
     `living` varchar(100) DEFAULT NULL,
-    `smart_devices` varchar(100) DEFAULT NULL
+    `smart_devices` varchar(100) DEFAULT NULL,
+    `user_id` char(36) DEFAULT NULL
 );""")
