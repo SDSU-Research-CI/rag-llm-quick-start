@@ -1,7 +1,7 @@
 import chromadb, gradio as gr, ollama, sqlite3, time
 from chromadb.config import DEFAULT_TENANT, DEFAULT_DATABASE, Settings
 
-def run_query(message, history, question, level, year, college, time_basis, campus, age, residency, living_situation, smart_devices_owned):    
+def run_query(message, history, question, level, year, college, time_basis, campus, age, residency, living_situation, smart_devices_owned, request: gr.Request):    
     # Establish connection to vector database
     client = chromadb.PersistentClient(path = "/chroma", settings = Settings())
     collection = client.get_collection(name = "docs")
@@ -50,9 +50,13 @@ def run_query(message, history, question, level, year, college, time_basis, camp
     # Log interaction
     connection = sqlite3.connect("/chroma/logs/logs.db")
     cursor = connection.cursor()
-    cursor.execute("""INSERT INTO chatbot_log (question, user_prompt, response, level_, year_, college, residency, time_basis, campus, living, age, smart_devices, request_time)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);""",
-        (question, message, response["message"]["content"], level, year, college, residency, time_basis, campus, living_situation, age, smart_devices_owned, time.strftime("%Y-%m-%d %H:%M:%S")))
+    try:
+        user_id = request.query_params._dict["user_id"]
+    except:
+        user_id = ""
+    cursor.execute("""INSERT INTO chatbot_log (question, user_prompt, response, level_, year_, college, residency, time_basis, campus, living, age, smart_devices, request_time, user_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);""",
+        (question, message, response["message"]["content"], level, year, college, residency, time_basis, campus, living_situation, age, smart_devices_owned, time.strftime("%Y-%m-%d %H:%M:%S"), user_id))
     connection.commit()
     connection.close()
 
