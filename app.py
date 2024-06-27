@@ -70,6 +70,7 @@ head = """
 <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 <link rel = "stylesheet" href = "https://aisurvey.sdsu.edu/css/style_chatbot.css" />
+<base target = "_PARENT" />
 """
 
 # Custom scripts
@@ -106,7 +107,7 @@ with gr.Blocks(theme = gr.themes.Base(font = ["sans-serif"], text_size = gr.them
 
     # Page title
     html = gr.HTML("""<br /><h1 style = 'font-size: 2em'>SDSU AI Student Survey Chatbot&nbsp;<i class = 'fa fa-info-circle' style = 'font-size: 28px; color: #0078e7' onclick = 'info();'></i>&nbsp;<i class = 'fa fa-question-circle' style = 'font-size: 28px; color: #e778e7' onclick = 'help();'></i></h1>
-                      <p style = "display: inline;"><i>To analyze quantitative questions:&nbsp;&nbsp;</i></p><div style = "cursor: pointer; background-color: #bfdbfe; color: #0078e7; display: inline; padding: 5px; border-radius: 5px; font-weight: 600;"><a style = "all: unset;" href = "https://aisurvey.sdsu.edu/dashboard/" target = "_PARENT"><i class = "fa fa-chart-simple"></i>&nbsp;Launch dashboard</a></div>""")
+                      <p style = "display: inline;"><i>To analyze quantitative questions:&nbsp;&nbsp;</i></p><div style = "cursor: pointer; background-color: #bfdbfe; color: #0078e7; display: inline; padding: 5px; border-radius: 5px; font-weight: 600;"><a style = "all: unset;" href = "https://aisurvey.sdsu.edu/dashboard/"><i class = "fa fa-chart-simple"></i>&nbsp;Launch dashboard</a></div>""")
     
     # Question selection dropdown
     question = gr.Dropdown(choices = ["What are your main questions or concerns about how AI will be incorporated into classes at SDSU over the next 2-3 semesters?",
