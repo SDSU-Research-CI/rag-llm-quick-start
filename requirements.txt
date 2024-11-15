@@ -4,6 +4,6 @@ langchain
 chromadb
 langchain-community
 langchain_community
-gradio==4.36.1
+gradio
 nltk
 ollama
