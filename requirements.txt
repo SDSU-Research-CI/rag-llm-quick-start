@@ -5,5 +5,10 @@ chromadb
 langchain-community
 langchain_community
 gradio==4.36.1
+gradio-client==1.0.1
 nltk
 ollama
+pydantic==2.8.2
+fastapi==0.111.0
+uvicorn==0.30.0
+starlette==0.37.2
