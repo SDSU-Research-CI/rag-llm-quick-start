@@ -39,7 +39,7 @@ Create the deployment:
 kubectl create -f rag-llm-deployment.yaml -n <namespace>
 ```
 
-This step will start the container and run several commands identified in the yaml file, including cloning this repository to the container and running the setup.sh script which will install several software packages, start Ollama, and run the app.py program which will severe up the Gradio-based web interface.
+This step will start the container and run several commands identified in the yaml file, including starting Ollama, downloading models, and run the app.py program which will serve up the Gradio-based web interface.
 
 However, we must first initialize the Chroma database with our data to be used for RAG.
 
@@ -80,26 +80,27 @@ root
 
 ## Populate the Chroma database
 
-Change to the code directory in root's home directory:
+Change to the src directory in root's home directory:
 
 ```
-cd ~/code/
+cd ~/src/
 ```
 
-This directory contains all the files that were cloned from this repository when the container started.
+This directory contains all the python files from this repository when the container was built.
+If you have changed these files, than another version of the container needs to be built to include these latest changes.
 
 Next, open a second terminal on your local machine where your RAG data file is located. In this example, we have a CSV file named student_responses.csv that we want to use for RAG. 
 
-The following command file copy the student_responses.csv file from your local computer to code directory on the remote container:
+The following command file copy the student_responses.csv file from your local computer to src directory on the remote container:
 
 ```
-kubectl cp -n <namespace> student_responses.csv rag-llm-ollama-<unique>-<name>:/root/code/student_responses.csv
+kubectl cp -n <namespace> student_responses.csv rag-llm-ollama-<unique>-<name>:/root/src/student_responses.csv
 ```
 
 Return to the remote shell and issue a directory list command. You should now see the student_responses.csv file in the directory.
 
 ```
-root@rag-llm-ollama-123456789-12345:~/code# ls -la
+root@rag-llm-ollama-123456789-12345:~/src# ls -la
 ...
 -rw-r--r-- 1 root root 1240 Jun 17 20:04 student_responses.csv
 ...
@@ -128,7 +129,9 @@ kubectl delete deployment rag-llm-ollama -n <namespace>
 kubectl create -f rag-llm-deployment.yaml -n <namespace>
 ```
 
-The above command would also be run if you make updates to app.py or vector_database_setup.py in the Git repo and want the new code to be deployed.
+The above command would also be run if you make updates to app.py or vector_database_setup.py and build a new version of the container and want the new code to be deployed.
+After building and pushing the new container image, you would need to update line 34 with the new image URL.
+Then you can apply the updated deployment with the commands above.
 
 ## Create service and ingress
 

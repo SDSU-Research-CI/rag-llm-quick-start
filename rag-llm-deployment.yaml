@@ -31,28 +31,26 @@ spec:
         operator: Exists
       containers:
       - name: rag-llm-ollama
-        image: nvidia/cuda:12.4.0-devel-ubuntu22.04
+        image: kkricksdsu/ai-student-survey-chatbot:v0.4
         command: ["/bin/bash", "-c"]
         args:
         - >-
-            cd /root;
-            apt-get update;
-            apt-get install -y git;
-            git clone https://github.com/SDSU-Research-CI/rag-llm-quick-start;
-            mv rag-llm-quick-start code;
-            cd code;
-            chmod +x setup.sh;
-            ./setup.sh;
+            systemctl daemon-reload;
+            systemctl enable ollama;
+            systemctl start ollama;
+            sleep 60;
+            ollama pull llama3;
+            ollama pull nomic-embed-text;
             python3 app.py;
         resources:
           limits:
             nvidia.com/gpu: 1
             cpu: 2
-            memory: 4Gi
+            memory: 8Gi
           requests:
             nvidia.com/gpu: 1
             cpu: 2
-            memory: 4Gi
+            memory: 8Gi
         volumeMounts:
             - mountPath: /chroma
               name: rag-llm-chroma
