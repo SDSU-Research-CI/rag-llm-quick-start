@@ -29,6 +29,10 @@ spec:
       - effect: NoSchedule
         key: nautilus.io/csu-tide
         operator: Exists
+      - effect: NoSchedule
+        key: nautilus.io/reservation
+        operator: Equal
+        value: csu-tide
       containers:
       - name: rag-llm-ollama
         image: kkricksdsu/ai-student-survey-chatbot:v0.4
